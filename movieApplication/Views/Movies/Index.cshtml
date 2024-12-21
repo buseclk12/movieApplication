@@ -1,0 +1,71 @@
+@model IEnumerable<BLL.Models.MoviesModel>
+
+@{
+    ViewData["Title"] = "Movies";
+}
+
+<div class="movies-header mb-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <h1 class="gradient-text"><i class="fas fa-film me-3"></i>Movies Collection</h1>
+        @if (User.IsInRole("Admin"))
+        {
+            <a asp-action="Create" class="btn btn-primary">
+                <i class="fas fa-plus me-2"></i>Add New Movie
+            </a>
+        }
+    </div>
+</div>
+
+<div class="movies-grid">
+    <div class="row g-4">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 col-lg-3">
+                <div class="movie-card h-100">
+                    <div class="movie-poster">
+                        <!-- Eğer poster URL'iniz varsa kullanın, yoksa placeholder -->
+                        <img src="https://via.placeholder.com/300x450?text=Movie+Poster" 
+                             alt="@item.Record.Name" 
+                             class="img-fluid">
+                        <div class="movie-overlay">
+                            <div class="movie-actions">
+                                <a asp-action="Details" asp-route-id="@item.Record.Id" 
+                                   class="btn btn-light btn-sm">
+                                    <i class="fas fa-info-circle"></i> Details
+                                </a>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <a asp-action="Edit" asp-route-id="@item.Record.Id" 
+                                       class="btn btn-warning btn-sm">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@item.Record.Id" 
+                                       class="btn btn-danger btn-sm">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="movie-info p-3">
+                        <h5 class="movie-title mb-2">@item.Record.Name</h5>
+                        <div class="movie-details">
+                            <p class="text-muted mb-1">
+                                <i class="fas fa-calendar me-2"></i>
+                                @(item.Record.ReleaseDate?.Year ?? 0)
+                            </p>
+                            <p class="text-muted mb-1">
+                                <i class="fas fa-user-tie me-2"></i>
+                                @(item.Record.Director?.Name ?? "Unknown Director")
+                            </p>
+                            <p class="text-muted mb-0">
+                                <i class="fas fa-dollar-sign me-2"></i>
+                                @item.Record.TotalRevenue.ToString("C0")
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
