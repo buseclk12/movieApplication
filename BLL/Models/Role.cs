@@ -1,6 +1,8 @@
-namespace BLL.Models;
-
-public class Role
+namespace BLL.Models
 {
-    
+    public enum Role
+    {
+        Admin = 1,
+        User = 2
+    }
 }

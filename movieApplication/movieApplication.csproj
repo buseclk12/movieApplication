@@ -2,8 +2,56 @@
 
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
-        <Nullable>enable</Nullable>
+        <Nullable>disable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0">
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+          <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9.0.0" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\BLL\BLL.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Templates 5\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Templates 5\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Remove="Templates 5\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Templates 5\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Templates 5\ControllerGenerator\ApiControllerWithContext.cshtml" />
+      <_ContentIncludedByDefault Remove="Templates 5\ControllerGenerator\MvcControllerWithContext.cshtml" />
+      <_ContentIncludedByDefault Remove="Templates 5\ViewGenerator\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Templates 5\ViewGenerator\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Templates 5\ViewGenerator\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Templates 5\ViewGenerator\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Templates 5\ViewGenerator\Empty.cshtml" />
+      <_ContentIncludedByDefault Remove="Templates 5\ViewGenerator\List.cshtml" />
+      <_ContentIncludedByDefault Remove="Templates 5\ViewGenerator\_ValidationScriptsPartial.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Movies\Index.cshtml" />
+    </ItemGroup>
 
 </Project>

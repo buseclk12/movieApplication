@@ -3,11 +3,11 @@ using System.ComponentModel;
 
 namespace BLL.Models
 {
-    public class RoleModel
+    public class RolesModel
     {
         public Roles Record { get; set; }
 
         [DisplayName("Role Name")]
-        public string RoleName => Record.RoleName;
+        public string RoleName => Record.Name;
     }
 }

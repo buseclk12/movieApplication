@@ -1,8 +1,46 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using BLL.Models
+@{
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="hero-section text-center py-5">
+    <h1 class="display-4 mb-4">Welcome to Movie App</h1>
+    <p class="lead mb-4">Discover, track, and share your favorite movies</p>
+    <div class="hero-buttons">
+        <a asp-controller="Movies" asp-action="Index" class="btn btn-primary btn-lg me-3">
+            <i class="fas fa-film me-2"></i>Browse Movies
+        </a>
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <a asp-controller="Users" asp-action="Register" class="btn btn-outline-primary btn-lg">
+                <i class="fas fa-user-plus me-2"></i>Join Now
+            </a>
+        }
+    </div>
+</div>
+
+<div class="features-section py-5">
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="feature-card text-center p-4">
+                <i class="fas fa-search fa-3x mb-3 text-primary"></i>
+                <h3>Discover</h3>
+                <p>Find new movies and keep track of what to watch</p>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="feature-card text-center p-4">
+                <i class="fas fa-star fa-3x mb-3 text-primary"></i>
+                <h3>Rate & Review</h3>
+                <p>Share your thoughts and see what others think</p>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="feature-card text-center p-4">
+                <i class="fas fa-users fa-3x mb-3 text-primary"></i>
+                <h3>Community</h3>
+                <p>Join discussions about your favorite movies</p>
+            </div>
+        </div>
+    </div>
 </div>

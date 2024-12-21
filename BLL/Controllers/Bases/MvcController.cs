@@ -1,7 +1,7 @@
 using System.Globalization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BLL.Controllers;
+namespace BLL.Controllers.Bases;
 
 public abstract class MvcController : Controller
 {
