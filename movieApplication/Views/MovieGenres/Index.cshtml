@@ -1,0 +1,60 @@
+@model IEnumerable<BLL.Models.MovieGenresModel>
+
+@{
+    ViewData["Title"] = "Movie Genres";
+}
+
+<div class="moviegenres-header mb-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <h1 class="gradient-text"><i class="fas fa-film me-2"></i><i class="fas fa-tags me-3"></i>Movie Genre Assignments</h1>
+        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+        {
+            <a asp-action="Create" class="btn btn-primary">
+                <i class="fas fa-plus me-2"></i>New Assignment
+            </a>
+        }
+    </div>
+</div>
+
+<div class="moviegenres-grid">
+    <div class="row g-4">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-6 col-lg-4">
+                <div class="moviegenre-card h-100">
+                    <div class="moviegenre-content">
+                        <div class="movie-info">
+                            <i class="fas fa-film fa-2x mb-2"></i>
+                            <h4 class="movie-title">@item.Record.Movie?.Name</h4>
+                        </div>
+                        <div class="genre-info">
+                            <i class="fas fa-tag fa-2x mb-2"></i>
+                            <h4 class="genre-name">@item.Record.Genre?.Name</h4>
+                        </div>
+                        <div class="assignment-actions mt-3">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <a asp-action="Details" asp-route-id="@item.Record.Id" 
+                                   class="btn btn-light btn-sm">
+                                    <i class="fas fa-info-circle"></i> Details
+                                </a>
+                                
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <a asp-action="Edit" asp-route-id="@item.Record.Id" 
+                                       class="btn btn-warning btn-sm">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@item.Record.Id" 
+                                       class="btn btn-danger btn-sm">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </a>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

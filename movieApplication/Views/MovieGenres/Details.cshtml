@@ -1,0 +1,25 @@
+@model BLL.Models.MovieGenresModel
+
+@{
+ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Movie Genre</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">ID</dt>
+        <dd class="col-sm-10">@Model.Record.Id</dd>
+
+        <dt class="col-sm-2">Movie</dt>
+        <dd class="col-sm-10">@Model.MovieName</dd>
+
+        <dt class="col-sm-2">Genre</dt>
+        <dd class="col-sm-10">@Model.GenreName</dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>
