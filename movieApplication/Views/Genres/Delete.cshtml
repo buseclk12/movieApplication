@@ -1,0 +1,26 @@
+@model BLL.Models.GenresModel
+
+@{
+    ViewData["Title"] = "Delete Genre";
+}
+
+<h2>Delete Genre</h2>
+
+<div class="alert alert-danger" role="alert">
+    Are you sure you want to delete this genre?
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Genre: @Model.Name</h4>
+        <p class="card-text">
+            <strong>Movies:</strong>
+            @Html.Raw(Model.Movies)
+        </p>
+        <form asp-action="DeleteConfirmed" method="post">
+            <input type="hidden" asp-for="Record.Id" />
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
