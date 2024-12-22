@@ -530,3 +530,246 @@ body {
         font-size: 1rem;
     }
 }
+
+/* Directors Styles */
+.director-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.director-avatar {
+    position: relative;
+    padding: 2rem;
+    text-align: center;
+}
+
+.avatar-circle {
+    width: 120px;
+    height: 120px;
+    background: linear-gradient(45deg, var(--gradient-1), var(--gradient-2));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    transition: transform 0.3s ease;
+}
+
+.director-card:hover .avatar-circle {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.director-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.director-card:hover .director-overlay {
+    opacity: 1;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.9rem;
+}
+
+.status-badge.active {
+    background: rgba(40, 167, 69, 0.2);
+    color: #28a745;
+}
+
+.status-badge.retired {
+    background: rgba(108, 117, 125, 0.2);
+    color: #6c757d;
+}
+
+/* Genres Styles */
+.genre-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.genre-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 45px rgba(0,0,0,.4);
+}
+
+.genre-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(45deg, var(--gradient-1), var(--gradient-2));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.genre-card:hover .genre-icon {
+    transform: rotate(360deg);
+}
+
+.genre-name {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.movie-count {
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 1.5rem;
+}
+
+/* MovieGenres Styles */
+.moviegenre-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.moviegenre-content {
+    padding: 2rem;
+    text-align: center;
+}
+
+.movie-info, .genre-info {
+    padding: 1rem;
+    position: relative;
+}
+
+.movie-info::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 25%;
+    width: 50%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gradient-1), transparent);
+}
+
+.movie-title, .genre-name {
+    margin-top: 1rem;
+    color: white;
+}
+
+/* Animation Classes */
+.director-card, .genre-card, .moviegenre-card {
+    animation: fadeInUp 0.6s ease-out;
+    animation-fill-mode: both;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Stagger animations */
+@for $i from 1 through 20 {
+    .director-card:nth-child(#{$i}),
+    .genre-card:nth-child(#{$i}),
+    .moviegenre-card:nth-child(#{$i}) {
+        animation-delay: #{$i * 0.1}s;
+    }
+}
+
+/* Hover effects for all cards */
+.director-card:hover,
+.genre-card:hover,
+.moviegenre-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 45px rgba(0,0,0,.4);
+}
+
+.director-actions,
+.genre-actions,
+.assignment-actions {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+/* Button hover effects */
+.btn {
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+/* Genre Tags in Movie Cards */
+.genre-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.genre-tag {
+    background: linear-gradient(45deg, var(--gradient-1), var(--gradient-2));
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.genre-tag:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,.2);
+}
+
+.genre-tag i {
+    font-size: 0.7rem;
+    margin-right: 0.3rem;
+}
+
+/* Movie Card adjustments for genres */
+.movie-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.movie-details {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.genre-tags {
+    margin-top: auto;
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}

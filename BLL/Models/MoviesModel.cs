@@ -8,11 +8,14 @@ namespace BLL.Models
 
         public string Name => Record.Name;
 
-        public string DirectorName => Record.Director?.Name;
+        public string DirectorName => Record.Director != null 
+            ? $"{Record.Director.Name} {Record.Director.Surname}" 
+            : "Unknown";
 
-        public string ReleaseDateFormatted => Record.ReleaseDate?.ToString("yyyy-MM-dd");
+        public string ReleaseDateFormatted => Record.ReleaseDate?.ToString("yyyy-MM-dd") ?? "Unknown";
 
-        public decimal TotalRevenue => Record.TotalRevenue;
+        public string TotalRevenueFormatted => Record.TotalRevenue.ToString("C");
 
+        public List<string> Genres { get; set; } = new List<string>(); // Varsayılan boş liste
     }
 }

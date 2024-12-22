@@ -15,8 +15,14 @@ namespace BLL.Services
         {
             return _db.Movies
                 .Include(m => m.Director) // Director ile ilişkili veriler dahil edilir
+                .Include(m => m.MovieGenres) // MovieGenres ile ilişkili veriler dahil edilir
+                .ThenInclude(mg => mg.Genre) // Genre ile ilişkili veriler dahil edilir
                 .OrderBy(m => m.Name)
-                .Select(m => new MoviesModel { Record = m });
+                .Select(m => new MoviesModel
+                {
+                    Record = m,
+                    Genres = m.MovieGenres.Select(mg => mg.Genre.Name).ToList() // Tür bilgileri eklenir
+                });
         }
 
         public ServiceBase Create(Movies movie)

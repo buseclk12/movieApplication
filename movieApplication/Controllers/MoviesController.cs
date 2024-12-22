@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace movieApplication.Controllers
 {
+    [Authorize]
     public class MoviesController : MvcController
     {
         // Service injections:
@@ -22,8 +23,8 @@ namespace movieApplication.Controllers
             _movieService = movieService;
         }
 
-        // GET: Movies
-        [Authorize(Roles = "Admin,User")]
+        // GET: Movies - Allow all authenticated users to view the list
+        [AllowAnonymous]
         public IActionResult Index()
         {
             // Get collection service logic:
@@ -31,7 +32,7 @@ namespace movieApplication.Controllers
             return View(list);
         }
 
-        // GET: Movies/Details/5
+        // GET: Movies/Details/5 - Only authenticated users can see details
         [Authorize(Roles = "Admin,User")]
         public IActionResult Details(int id)
         {
@@ -50,7 +51,7 @@ namespace movieApplication.Controllers
             ViewBag.DirectorIds = new SelectList(_movieService.Query().Select(m => m.Record.Director), "Id", "Name");
         }
 
-        // GET: Movies/Create
+        // GET: Movies/Create - Only Admin can create
         [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
@@ -79,7 +80,7 @@ namespace movieApplication.Controllers
             return View(movie);
         }
 
-        // GET: Movies/Edit/5
+        // GET: Movies/Edit/5 - Only Admin can edit
         [Authorize(Roles = "Admin")]
         public IActionResult Edit(int id)
         {
@@ -114,7 +115,7 @@ namespace movieApplication.Controllers
             return View(movie);
         }
 
-        // GET: Movies/Delete/5
+        // GET: Movies/Delete/5 - Only Admin can delete
         [Authorize(Roles = "Admin")]
         public IActionResult Delete(int id)
         {

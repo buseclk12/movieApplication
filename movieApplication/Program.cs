@@ -19,6 +19,10 @@ builder.Configuration.GetSection(nameof(AppSettings)).Bind(new AppSettings());
 builder.Services.AddScoped<IService<Movies, MoviesModel>, MovieService>();
 builder.Services.AddScoped<IService<Users, UsersModel>, UsersService>();
 builder.Services.AddScoped<IService<Roles, RolesModel>, RolesService>();
+builder.Services.AddScoped<IService<Genres, GenresModel>, GenresService>();
+builder.Services.AddScoped<IService<Directors, DirectorsModel>, DirectorsService>();
+builder.Services.AddScoped<IService<MovieGenres, MovieGenresModel>, MovieGenresService>();
+
 // builder.Services.AddScoped<IService<Country, CountryModel>, CountryService>();
 // builder.Services.AddScoped<IService<City, CityModel>, CityService>();
 // builder.Services.AddScoped<IService<Product, ProductModel>, ProductService>();
