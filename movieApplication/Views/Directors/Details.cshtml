@@ -1,0 +1,62 @@
+@model BLL.Models.DirectorsModel
+
+@{
+    ViewData["Title"] = "Director Details";
+}
+
+<h2 class="mb-4 text-primary">Director Details</h2>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <h4 class="card-title text-info">
+            <i class="fas fa-user-tie me-2"></i>@Model.FullName
+        </h4>
+        <p>
+            <strong>Status:</strong> 
+            <span class="badge @(Model.IsRetired ? "bg-danger" : "bg-success")">
+                <i class="fas @(Model.IsRetired ? "fa-user-clock" : "fa-user-check")"></i> 
+                @(Model.IsRetired ? "Retired" : "Active")
+            </span>
+        </p>
+        
+        <hr />
+        
+        <h5 class="text-secondary"><i class="fas fa-film me-2"></i>Movies Directed</h5>
+        @if (Model.Movies != null && Model.Movies.Any())
+        {
+            <ul class="list-group">
+                @foreach (var movie in Model.Movies)
+                {
+                    <li class="list-group-item">
+                        <strong>@movie.Name</strong> 
+                        <span class="text-muted">(@movie.ReleaseDateFormatted)</span>
+                        <br />
+                        <span class="text-muted">
+                            <i class="fas fa-dollar-sign me-1"></i>
+                            @movie.TotalRevenueFormatted
+                        </span>
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p class="text-muted">No movies assigned to this director.</p>
+        }
+
+        <div class="mt-4">
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Back to List
+            </a>
+            @if (User.IsInRole("Admin"))
+            {
+                <a asp-action="Edit" asp-route-id="@Model.Record.Id" class="btn btn-warning">
+                    <i class="fas fa-edit me-2"></i>Edit
+                </a>
+                <a asp-action="Delete" asp-route-id="@Model.Record.Id" class="btn btn-danger">
+                    <i class="fas fa-trash-alt me-2"></i>Delete
+                </a>
+            }
+        </div>
+    </div>
+</div>

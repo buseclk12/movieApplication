@@ -1,0 +1,83 @@
+@model IEnumerable<BLL.Models.DirectorsModel>
+
+@{
+ViewData["Title"] = "Directors";
+}
+
+<div class="directors-header mb-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <h1 class="gradient-text"><i class="fas fa-user-tie me-3"></i>Directors</h1>
+        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+        {
+        <a asp-action="Create" class="btn btn-primary">
+            <i class="fas fa-plus me-2"></i>Add New Director
+        </a>
+        }
+    </div>
+</div>
+
+<div class="directors-grid">
+    <div class="row g-4">
+        @foreach (var item in Model)
+        {
+        <div class="col-md-4 col-lg-3">
+            <div class="director-card h-100">
+                <div class="director-avatar">
+                    <div class="avatar-circle">
+                        <i class="fas fa-user-tie fa-3x"></i>
+                    </div>
+                    <div class="director-overlay">
+                        <div class="director-actions">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                            <a asp-action="Details" asp-route-id="@item.Record.Id"
+                               class="btn btn-light btn-sm">
+                                <i class="fas fa-info-circle"></i> Details
+                            </a>
+
+                            @if (User.IsInRole("Admin"))
+                            {
+                            <a asp-action="Edit" asp-route-id="@item.Record.Id"
+                               class="btn btn-warning btn-sm">
+                                <i class="fas fa-edit"></i> Edit
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@item.Record.Id"
+                               class="btn btn-danger btn-sm">
+                                <i class="fas fa-trash"></i> Delete
+                            </a>
+                            }
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="director-info p-3">
+                    <h5 class="director-name mb-2">@item.Record.Name @item.Record.Surname</h5>
+                    <div class="director-details">
+                        <p class="text-muted mb-1">
+                            <i class="fas fa-film me-2"></i>
+                            @if (item.Movies != null && item.Movies.Any())
+                            {
+                                <p class="text-muted mb-1">
+                                    <i class="fas fa-film me-2"></i>
+                                    @string.Join(", ", item.Movies.Select(m => m.Name))
+                                </p>
+                            }
+                            else
+                            {
+                                <p class="text-muted mb-1">
+                                    <i class="fas fa-film me-2"></i>
+                                    No movies assigned.
+                                </p>
+                            }
+                        </p>
+                        <p class="status-badge @(item.Record.IsRetired ? "retired" : "active")">
+                            <i class="fas @(item.Record.IsRetired ? "fa-user-clock" : "fa-user-check") me-2"></i>
+                            @(item.Record.IsRetired ? "Retired" : "Active")
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>

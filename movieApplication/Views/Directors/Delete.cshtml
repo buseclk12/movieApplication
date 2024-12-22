@@ -1,0 +1,23 @@
+@model BLL.Models.DirectorsModel
+
+@{
+ViewData["Title"] = "Delete Director";
+}
+
+<h2>Delete Director</h2>
+
+<div class="alert alert-danger" role="alert">
+    Are you sure you want to delete this director?
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Director: @Model.FullName</h4>
+        <p><strong>Retired:</strong> @(Model.IsRetired ? "Yes" : "No")</p>
+        <form asp-action="DeleteConfirmed" method="post">
+            <input type="hidden" asp-for="Record.Id" />
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
