@@ -8,9 +8,9 @@ namespace BLL.Models
         public Users Record { get; set; }
 
         [DisplayName("User Name")]
-        public string UserName => Record.UserName;
+        public string UserName => Record?.UserName ?? string.Empty;
 
-        public string Password => Record.Password;
+        public string Password => Record?.Password ?? string.Empty;
 
         [DisplayName("Status")]
         public string IsActive => Record.IsActive ? "Active" : "Not Active";

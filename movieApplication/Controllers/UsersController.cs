@@ -43,7 +43,11 @@ namespace movieApplication.Controllers
         [AllowAnonymous]
         public IActionResult Login()
         {
-            return View();
+            var model = new UsersModel
+            {
+                Record = new Users()
+            };
+            return View(model);
         }
 
         [HttpPost]
@@ -72,6 +76,7 @@ namespace movieApplication.Controllers
             }
             return View();
         }
+
 
         [AllowAnonymous]
         public async Task<IActionResult> Logout()

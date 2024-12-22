@@ -12,16 +12,16 @@
                     <i class="fas fa-sign-in-alt me-2"></i>Login
                 </h2>
 
-                <form asp-action="Login" method="post">
+                <form asp-action="Login" asp-controller="Users" method="post">
                     <div class="form-floating mb-3">
-                        <input asp-for="UserName" class="form-control" placeholder="Username" />
-                        <label asp-for="UserName">Username</label>
+                        <input asp-for="Record.UserName" class="form-control" placeholder="Username" />
+                        <label asp-for="Record.UserName">Username</label>
                         <span asp-validation-for="UserName" class="text-danger"></span>
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input asp-for="Password" type="password" class="form-control" placeholder="Password" />
-                        <label asp-for="Password">Password</label>
+                        <input asp-for="Record.Password" type="password" class="form-control" placeholder="Password" />
+                        <label asp-for="Record.Password">Password</label>
                         <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
 
