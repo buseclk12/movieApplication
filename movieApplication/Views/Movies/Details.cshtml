@@ -65,18 +65,6 @@
                 <a asp-action="Index" class="btn btn-secondary">
                     <i class="fas fa-arrow-left me-2"></i>Back to List
                 </a>
-                
-                @if (User.IsInRole("Admin"))
-                {
-                    <div class="admin-actions">
-                        <a asp-action="Edit" asp-route-id="@Model.Record.Id" class="btn btn-warning">
-                            <i class="fas fa-edit me-2"></i>Edit
-                        </a>
-                        <a asp-action="Delete" asp-route-id="@Model.Record.Id" class="btn btn-danger">
-                            <i class="fas fa-trash me-2"></i>Delete
-                        </a>
-                    </div>
-                }
             </div>
         </div>
     </div>
