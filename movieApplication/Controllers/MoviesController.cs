@@ -86,10 +86,6 @@ namespace movieApplication.Controllers
         {
             // Get item to edit service logic:
             var item = _movieService.Query().SingleOrDefault(q => q.Record.Id == id);
-            if (item == null)
-            {
-                return NotFound();
-            }
             SetViewData();
             return View(item);
         }
@@ -121,10 +117,6 @@ namespace movieApplication.Controllers
         {
             // Get item to delete service logic:
             var item = _movieService.Query().SingleOrDefault(q => q.Record.Id == id);
-            if (item == null)
-            {
-                return NotFound();
-            }
             return View(item);
         }
 
