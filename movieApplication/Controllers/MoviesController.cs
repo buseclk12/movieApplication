@@ -6,7 +6,9 @@ using BLL.Services;
 using BLL.Services.Bases;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using PageModel = BLL.Models.PageModel;
 
 // Generated from Custom Template.
 
@@ -17,18 +19,53 @@ namespace movieApplication.Controllers
     {
         // Service injections:
         private readonly IService<Movies, MoviesModel> _movieService;
+        private readonly IService<Directors, DirectorsModel> _directorsService;
 
-        public MoviesController(IService<Movies, MoviesModel> movieService)
+        public MoviesController(IService<Movies, MoviesModel> movieService, IService<Directors, DirectorsModel> directorsService)
         {
             _movieService = movieService;
+            _directorsService = directorsService;
+
+        }
+
+        protected void SetViewData(int? currentDirectorId = null)
+        {
+            // Retrieve all directors and their names
+            var directors = _directorsService.Query().Select(d => new 
+            { 
+                d.Record.Id, 
+                FullName = (d.Record.Name ?? "Unknown") + " " + (d.Record.Surname ?? "Unknown")
+            }).ToList();
+
+            // Ensure the current director is included in the dropdown if it is not already present
+            if (currentDirectorId.HasValue && !directors.Any(d => d.Id == currentDirectorId.Value))
+            {
+                var currentDirector = _directorsService.Query()
+                    .Where(d => d.Record.Id == currentDirectorId.Value)
+                    .Select(d => new 
+                    { 
+                        d.Record.Id, 
+                        FullName = (d.Record.Name ?? "Unknown") + " " + (d.Record.Surname ?? "Unknown") 
+                    })
+                    .SingleOrDefault();
+
+                if (currentDirector != null)
+                {
+                    directors.Add(currentDirector);
+                }
+            }
+
+            // Set the ViewBag with the list of directors
+            ViewBag.DirectorIds = new SelectList(directors, "Id", "FullName", currentDirectorId);
         }
 
         // GET: Movies - Allow all authenticated users to view the list
         [AllowAnonymous]
-        public IActionResult Index()
+        public IActionResult Index(PageModel pageModel)
         {
             // Get collection service logic:
             var list = _movieService.Query().ToList();
+            ViewBag.PageModel = pageModel;
             return View(list);
         }
 
@@ -36,19 +73,8 @@ namespace movieApplication.Controllers
         [Authorize(Roles = "Admin,User")]
         public IActionResult Details(int id)
         {
-            // Get item service logic:
             var item = _movieService.Query().SingleOrDefault(q => q.Record.Id == id);
-            if (item == null)
-            {
-                return NotFound();
-            }
             return View(item);
-        }
-
-        protected void SetViewData()
-        {
-            // Related items service logic to set ViewData (e.g., Director dropdown):
-            ViewBag.DirectorIds = new SelectList(_movieService.Query().Select(m => m.Record.Director), "Id", "Name");
         }
 
         // GET: Movies/Create - Only Admin can create
@@ -84,11 +110,19 @@ namespace movieApplication.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Edit(int id)
         {
-            // Get item to edit service logic:
+            // Retrieve the movie to edit
             var item = _movieService.Query().SingleOrDefault(q => q.Record.Id == id);
-            SetViewData();
+            if (item == null)
+            {
+                return NotFound();
+            }
+
+            // Pass the current director's ID to ensure it is included in the dropdown
+            SetViewData(item.Record.DirectorId);
+
             return View(item);
         }
+
 
         // POST: Movies/Edit
         [HttpPost]

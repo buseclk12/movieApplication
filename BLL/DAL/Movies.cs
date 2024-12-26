@@ -10,5 +10,5 @@ public class Movies
 
     // Navigation properties
     public Directors Director { get; set; }
-    public ICollection<MovieGenres> MovieGenres { get; set; }
+    public ICollection<MovieGenres> MovieGenres { get; set; } = new List<MovieGenres>();
 } 

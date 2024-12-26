@@ -6,5 +6,5 @@ public class Roles
     public string Name { get; set; }
 
     // Navigation property
-    public ICollection<Users> Users { get; set; }
+    public ICollection<Users> Users { get; set; } = new List<Users>();
 } 

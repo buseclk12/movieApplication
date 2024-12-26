@@ -7,7 +7,6 @@ namespace BLL.Services
 {
     public class RolesService : ServiceBase, IService<Roles, RolesModel>
     {
-        private IService<Roles, RolesModel> _serviceImplementation;
 
         public RolesService(Db db) : base(db)
         {

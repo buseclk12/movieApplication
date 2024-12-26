@@ -8,5 +8,5 @@ public class Directors
     public bool IsRetired { get; set; }
 
     // Navigation property
-    public ICollection<Movies> Movies { get; set; }
+    public ICollection<Movies> Movies { get; set; } = new List<Movies>(); 
 } 

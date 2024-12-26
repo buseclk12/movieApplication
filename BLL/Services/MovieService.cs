@@ -31,7 +31,7 @@ namespace BLL.Services
                 return Error("A movie with the same name already exists!");
 
             movie.Name = movie.Name.Trim();
-            movie.ReleaseDate = movie.ReleaseDate; // Gerekirse tarih formatı kontrol edilir
+            movie.ReleaseDate = movie.ReleaseDate?.ToUniversalTime();
             _db.Movies.Add(movie);
             _db.SaveChanges();
             return Success("Movie created successfully.");
@@ -47,7 +47,7 @@ namespace BLL.Services
                 return Error("Movie not found!");
 
             entity.Name = movie.Name.Trim();
-            entity.ReleaseDate = movie.ReleaseDate;
+            entity.ReleaseDate = DateTime.SpecifyKind(movie.ReleaseDate.Value, DateTimeKind.Utc);
             entity.TotalRevenue = movie.TotalRevenue;
             entity.DirectorId = movie.DirectorId;
 

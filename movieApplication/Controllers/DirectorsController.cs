@@ -5,6 +5,7 @@ using BLL.Models;
 using BLL.Services.Bases;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace MVC.Controllers
 {
@@ -17,6 +18,12 @@ namespace MVC.Controllers
         public DirectorsController(IService<Directors, DirectorsModel> directorsService)
         {
             _directorsService = directorsService;
+        }
+        protected void SetViewData()
+        {
+            ViewData["DirectorID"] = new SelectList(_directorsService.Query().ToList(), "Record.Id", "Name");
+
+            ViewBag.StoreIds = new MultiSelectList(_directorsService.Query().ToList(), "Record.Id", "Name");
         }
         [AllowAnonymous]
         // GET: Directors
@@ -42,6 +49,7 @@ namespace MVC.Controllers
         // GET: Directors/Create
         public IActionResult Create()
         {
+            SetViewData();
             return View();
         }
         [Authorize(Roles = "Admin")]
